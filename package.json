@@ -1,7 +1,7 @@
 {
   "name": "mingled",
   "version": "0.0.2",
-  "module": "src/index.ts",
+  "module": "index.ts",
   "type": "module",
   "scripts": {},
   "peerDependencies": {

@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from 'react-native';
-import  { parse } from './parser';
+import  { parse } from './src/parser';
 
 export function $(styles, ...values) {
   return StyleSheet.create(parse(styles, ...values));
