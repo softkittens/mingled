@@ -1,10 +1,9 @@
 {
   "name": "mingled",
   "version": "0.0.1",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
-  "scripts": {
-  },
+  "scripts": {},
   "peerDependencies": {
     "typescript": "^5.0.0",
     "react-native": "*"
