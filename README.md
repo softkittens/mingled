@@ -79,67 +79,7 @@ Notes:
   <View style={pill}><Text style={pillText}>New</Text></View>
   ```
 
-## Tokens reference
-
-- **Spacing**
-  - `p:all` → `padding`
-  - `p:vertical|horizontal` → `paddingVertical`, `paddingHorizontal`
-  - `p:top|horizontal|bottom` → `paddingTop`, `paddingHorizontal`, `paddingBottom`
-  - `p:top|right|bottom|left` → `paddingTop`, `paddingRight`, `paddingBottom`, `paddingLeft`
-  - `pt:x` `pr:x` `pb:x` `pl:x` `px:x` `py:x`
-  - Same patterns for margin: `m`, `mt`, `mr`, `mb`, `ml`, `mx`, `my`
-
-- **Layout**
-  - `flex:n` → `flex`
-  - `row` → `flexDirection:'row'`
-  - `row:align` → `flexDirection:'row'`, `alignItems:align`
-  - `row:align|justify` → `flexDirection:'row'`, `alignItems`, `justifyContent`
-    - `justify` accepts `between` → `space-between`, `around` → `space-around`
-  - `center` → `alignItems:'center'`, `justifyContent:'center'`
-  - `wrap` → `flexWrap:'wrap'`
-  - `gap:n` → `gap`
-  - `jc:x` → `justifyContent`
-  - `ai:x` → `alignItems`
-  - `self:x` → `alignSelf`
-  - `w:n` `h:n` `max-w:n` `min-w:n` `max-h:n` `min-h:n`
-  - `ar:n` → `aspectRatio`
-
-- **Borders & radius**
-  - `b:color|size|style` → `borderWidth`, `borderColor`, `borderStyle`
-  - `bb:color|size|style` → bottom border
-  - `bt:...`, `bl:...`, `br:...` → top/left/right borders
-  - `r:n` → `borderRadius`
-  - `tr:n` → `borderTopRightRadius`, `borderTopLeftRadius`
-
-- **Colors & background**
-  - `bg:token|#hex` → `backgroundColor`
-  - `c:token|#hex` → `color`
-  - `clear` → `backgroundColor:'transparent'`
-
-- **Typography**
-  - `f:size` → `fontSize`
-  - `f:size|color` → `fontSize`, `color`
-  - `t:x` → `textAlign`
-  - `ls:n` → `letterSpacing`
-  - `uc` → `textTransform:'uppercase'`
-  - `lh:n` → `lineHeight`
-  - `semi` → `fontWeight:'600'`
-  - `bold` → `fontWeight:'bold'`
-  - `fw:x` → `fontWeight`
-  - `u` or `underline` → `textDecorationLine:'underline'`
-
-- **Overflow & opacity**
-  - `of:x` → `overflow`
-  - `ofh` → `overflow:'hidden'`
-  - `o:n` or `opacity:n` → `opacity` (0–100 mapped to 0–1)
-
-- **Positioning**
-  - `abs` → `position:'absolute'`
-  - `abs:top` → `position:'absolute'`, `top`
-  - `abs:top|right` → `top`, `right`
-  - `abs:top|right|bottom` → `top`, `right`, `bottom`
-  - `abs:top|right|bottom|left` → all sides
-  - `top:n` `right:n` `bottom:n` `left:n`
+ 
 
 ## Color tokens
 
@@ -244,6 +184,64 @@ Tips:
 <View style={$`px:12 py:6 r:16 bg:gray-10`}>
   <Text style={$`f:12|gray-60 uc`}>beta</Text>
 </View>
+```
+
+- **Padding and margin combos**
+
+```tsx
+<View style={$`p:12|16 m:8|12|16|12`} />
+<View style={$`px:16 py:8 mx:12 my:4`} />
+```
+
+- **Alignment helpers**
+
+```tsx
+<View style={$`row ai:center jc:around`} />
+<View style={$`row`}>
+  <View style={$`self:flex-end`} />
+</View>
+```
+
+- **Sizing and aspect ratio**
+
+```tsx
+<View style={$`w:120 h:80`} />
+<View style={$`w:200 ar:1.777 bg:gray-7`} />
+<View style={$`min-w:80 max-h:120 bg:indigo-5`} />
+```
+
+- **Colors and clear**
+
+```tsx
+<View style={$`bg:gray-10`} />
+<Text style={$`c:#1289F8`}>Link</Text>
+<View style={$`clear`} />
+```
+
+- **Typography variants**
+
+```tsx
+<Text style={$`f:18|gray-60 semi`} />
+<Text style={$`f:14 lh:20 ls:0.5`} />
+<Text style={$`fw:700 u`}>Underlined bold</Text>
+```
+
+- **Overflow and opacity**
+
+```tsx
+<View style={$`of:auto`} />
+<View style={$`ofh o:60`} />
+```
+
+- **Positioning variants**
+
+```tsx
+<View style={$`abs`} />
+<View style={$`abs:10`} />
+<View style={$`abs:10|20`} />
+<View style={$`abs:10|20|30`} />
+<View style={$`abs:1|2|3|4`} />
+<View style={$`top:8 right:12`} />
 ```
 
 ## 💡 Why Mingled?
