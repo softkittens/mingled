@@ -1,6 +1,8 @@
 # mingled
 
-React Native inline utility styling. Tailwind-like ergonomics with clear `property:value` tokens—designed to be mingled right into your JSX.
+**Style fast. Read faster.**
+
+Inline utility styling for React Native with clear `property:value` tokens—meant to be mingled right into your JSX.
 
 Mingled compiles short, space-delimited tokens (e.g. `p:16 bg:gray-10 row:center|between`) into React Native style objects via a tiny tagged-template function.
 
@@ -11,6 +13,13 @@ Mingled compiles short, space-delimited tokens (e.g. `p:16 bg:gray-10 row:center
 - **Tiny surface area**. A focused set of utilities that map directly to RN styles.
 - **Zero config**. Drop in and start styling. No build step required.
 - **Theme-friendly**. Use built-in color tokens or pass raw hex.
+
+## At a glance
+
+- **Exports**: `$`, `setColors`, `colors`, `configure`, `clearCache`
+- **Inline usage**: `<View style={$`p:16 bg:gray-10 r:8`} />`
+- **Customize colors**: `setColors({ primary: '#6C47FF' })`
+- **Performance knobs**: `configure({ maxCacheEntries, maxTokenCacheEntries })`
 
 ## Installation
 

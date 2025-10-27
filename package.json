@@ -2,7 +2,9 @@
   "name": "mingled",
   "version": "0.0.3",
   "description": "Utility styling for React Native",
-  "module": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": ["react-native", "styling", "css"],
   "author": "aileksandar",
   "repository": {
@@ -10,10 +12,26 @@
     "url": "https://github.com/softkittens/mingled.git"
   },
   "type": "module",
-  "scripts": {},
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunx tsc -p .",
+    "prepare": "bun run build",
+    "test": "bun test",
+    "clean": "rm -rf dist"
+  },
   "peerDependencies": {
     "react-native": "*"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.0"
   }
 }
