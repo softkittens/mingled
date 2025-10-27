@@ -38,6 +38,16 @@ export const colors = {
   'gray-90': '#323232',
 };
 
+export function setColors(palette, { replace = false } = {}) {
+  if (!palette || typeof palette !== 'object') return;
+  if (replace) {
+    for (const key of Object.keys(colors)) delete colors[key];
+  }
+  for (const [key, value] of Object.entries(palette)) {
+    colors[key] = value;
+  }
+}
+
 const shortMethods = {
   p: (val, ...values) => {
     if (!values.length) return { padding: val };
