@@ -79,18 +79,7 @@ Notes:
   <View style={pill}><Text style={pillText}>New</Text></View>
   ```
 
- 
 
-## Color tokens
-
-Built-in tokens (you can pass raw hex as well):
-
-```
-primary, black, red, blue,
-indigo-5, indigo-50, indigo-60,
-gray-5, gray-7, gray-10, gray-15, gray-20,
-gray-30, gray-40, gray-50, gray-60, gray-90
-```
 
 ## Customize colors
 
@@ -128,38 +117,52 @@ Tips:
 
 ```tsx
 <View style={$`row:center|between gap:8 px:12 py:8`} />
+// RN equivalent:
+// <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8, paddingHorizontal: 12, paddingVertical: 8 }} />
 ```
 
 - **Text**
 
 ```tsx
 <Text style={$`f:18|gray-90 semi ls:1`}>Title</Text>
+// RN equivalent:
+// <Text style={{ fontSize: 18, color: '#323232', fontWeight: '600', letterSpacing: 1 }}>Title</Text>
 ```
 
 - **Borders and radius**
 
 ```tsx
 <View style={$`b:gray-20|1|solid r:12 bg:indigo-5 p:16`} />
+// RN equivalent:
+// <View style={{ borderWidth: 1, borderColor: '#E3E5E5', borderStyle: 'solid', borderRadius: 12, backgroundColor: '#F9FAFC', padding: 16 }} />
 ```
 
 - **Absolute fill**
 
 ```tsx
 <View style={$`abs:0|0|0|0 ofh`} />
+// RN equivalent:
+// <View style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, overflow: 'hidden' }} />
 ```
 
 - **Button**
 
 ```tsx
-<TouchableOpacity style={$`bg:blue p:10|16 r:8`}>
+<Button style={$`bg:blue p:10|16 r:8`}>
   <Text style={$`c:white semi`}>Tap me</Text>
-  </TouchableOpacity>
+</Button>
+// RN equivalent:
+// <Button style={{ backgroundColor: '#1289F8', paddingVertical: 10, paddingHorizontal: 16, borderRadius: 8 }}>
+//   <Text style={{ color: 'white', fontWeight: '600' }}>Tap me</Text>
+// </Button>
 ```
 
 - **Avatar**
 
 ```tsx
 <Image style={$`w:48 h:48 r:9999 b:white|2`} source={{ uri }} />
+// RN equivalent:
+// <Image style={{ width: 48, height: 48, borderRadius: 9999, borderColor: 'white', borderWidth: 2 }} source={{ uri }} />
 ```
 
 - **Grid wrap**
@@ -170,12 +173,20 @@ Tips:
     <View key={i.id} style={$`w:100 h:80 bg:gray-7 r:8`} />
   ))}
 </View>
+// RN equivalent:
+// <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+//   {items.map(i => (
+//     <View key={i.id} style={{ width: 100, height: 80, backgroundColor: '#F7F7F7', borderRadius: 8 }} />
+//   ))}
+// </View>
 ```
 
 - **Overlay**
 
 ```tsx
 <View style={$`abs:0|0|0|0 bg:black o:60`} />
+// RN equivalent:
+// <View style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor: '#0F0F0F', opacity: 0.6 }} />
 ```
 
 - **Chip / pill**
@@ -184,81 +195,131 @@ Tips:
 <View style={$`px:12 py:6 r:16 bg:gray-10`}>
   <Text style={$`f:12|gray-60 uc`}>beta</Text>
 </View>
+// RN equivalent:
+// <View style={{ paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16, backgroundColor: '#F5F5F5' }}>
+//   <Text style={{ fontSize: 12, color: '#666666', textTransform: 'uppercase' }}>beta</Text>
+// </View>
 ```
 
 - **Padding and margin combos**
 
 ```tsx
 <View style={$`p:12|16 m:8|12|16|12`} />
+// RN equivalent:
+// <View style={{ paddingVertical: 12, paddingHorizontal: 16, marginTop: 8, marginRight: 12, marginBottom: 16, marginLeft: 12 }} />
+
 <View style={$`px:16 py:8 mx:12 my:4`} />
+// RN equivalent:
+// <View style={{ paddingHorizontal: 16, paddingVertical: 8, marginHorizontal: 12, marginVertical: 4 }} />
 ```
 
 - **Alignment helpers**
 
 ```tsx
 <View style={$`row ai:center jc:around`} />
+// RN equivalent:
+// <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }} />
 <View style={$`row`}>
   <View style={$`self:flex-end`} />
 </View>
+// RN equivalent:
+// <View style={{ flexDirection: 'row' }}>
+//   <View style={{ alignSelf: 'flex-end' }} />
+// </View>
 ```
 
 - **Sizing and aspect ratio**
 
 ```tsx
 <View style={$`w:120 h:80`} />
+// RN equivalent:
+// <View style={{ width: 120, height: 80 }} />
+
 <View style={$`w:200 ar:1.777 bg:gray-7`} />
+// RN equivalent:
+// <View style={{ width: 200, aspectRatio: 1.777, backgroundColor: '#F7F7F7' }} />
+
 <View style={$`min-w:80 max-h:120 bg:indigo-5`} />
+// RN equivalent:
+// <View style={{ minWidth: 80, maxHeight: 120, backgroundColor: '#F9FAFC' }} />
 ```
 
 - **Colors and clear**
 
 ```tsx
 <View style={$`bg:gray-10`} />
+// RN equivalent:
+// <View style={{ backgroundColor: '#F5F5F5' }} />
+
 <Text style={$`c:#1289F8`}>Link</Text>
+// RN equivalent:
+// <Text style={{ color: '#1289F8' }}>Link</Text>
+
 <View style={$`clear`} />
+// RN equivalent:
+// <View style={{ backgroundColor: 'transparent' }} />
 ```
 
 - **Typography variants**
 
 ```tsx
 <Text style={$`f:18|gray-60 semi`} />
+// RN equivalent:
+// <Text style={{ fontSize: 18, color: '#666666', fontWeight: '600' }} />
+
 <Text style={$`f:14 lh:20 ls:0.5`} />
+// RN equivalent:
+// <Text style={{ fontSize: 14, lineHeight: 20, letterSpacing: 0.5 }} />
+
 <Text style={$`fw:700 u`}>Underlined bold</Text>
+// RN equivalent:
+// <Text style={{ fontWeight: 700, textDecorationLine: 'underline' }}>Underlined bold</Text>
 ```
 
 - **Overflow and opacity**
 
 ```tsx
 <View style={$`of:auto`} />
+// RN equivalent:
+// <View style={{ overflow: 'auto' }} />
+
 <View style={$`ofh o:60`} />
+// RN equivalent:
+// <View style={{ overflow: 'hidden', opacity: 0.6 }} />
 ```
 
 - **Positioning variants**
 
 ```tsx
 <View style={$`abs`} />
+// RN equivalent:
+// <View style={{ position: 'absolute' }} />
+
 <View style={$`abs:10`} />
+// RN equivalent:
+// <View style={{ position: 'absolute', top: 10 }} />
+
 <View style={$`abs:10|20`} />
+// RN equivalent:
+// <View style={{ position: 'absolute', top: 10, right: 20 }} />
+
 <View style={$`abs:10|20|30`} />
+// RN equivalent:
+// <View style={{ position: 'absolute', top: 10, right: 20, bottom: 30 }} />
+
 <View style={$`abs:1|2|3|4`} />
+// RN equivalent:
+// <View style={{ position: 'absolute', top: 1, right: 2, bottom: 3, left: 4 }} />
+
 <View style={$`top:8 right:12`} />
+// RN equivalent:
+// <View style={{ top: 8, right: 12 }} />
 ```
 
 ## 💡 Why Mingled?
 
 Mingled embraces styling where it’s used: in your JSX. Instead of memorizing class systems, you write concise `property:value` tokens that map cleanly to React Native styles. It’s familiar like Tailwind, but more literal and compact.
 
-## 🔄 Migration from Tailwind
-
-- `p-4` → `p:16`
-- `px-4` → `px:16`
-- `mt-2` → `mt:8`
-- `text-lg` → `f:18`
-- `font-bold` → `bold` or `fw:bold`
-- `text-blue-500` → `c:blue`
-- `bg-gray-100` → `bg:gray-10`
-- `flex items-center justify-between` → `row:center|between`
-- `rounded-lg` → `r:8`
 
 ## Testing & development
 
