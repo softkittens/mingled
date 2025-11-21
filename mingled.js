@@ -9,6 +9,112 @@ const ESCAPE_REGEX = /([^a-zA-Z0-9_-])/g;
 const REM_BASE = 16;
 const CACHE_CLEANUP_RATIO = 0.2;
 
+// CSS Reset - Based on Tailwind's Preflight (built on modern-normalize)
+// Bundled inline for zero external dependencies and optimal performance.
+const CSS_RESET = `*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  appearance: none;
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}`;
+
 const FONT_WEIGHTS = {
   thin: 100,
   xlight: 200,
@@ -45,10 +151,12 @@ class MingledRuntime {
     this.cache = new Map();
     this.injectedTokens = new Set();
     this.styleElement = null;
+    this.resetElement = null;
     this.options = {
       prefix: '',
       enableCache: true,
       autoInject: true,
+      enableReset: true,
       maxCacheSize: 1000,
       batchDOMUpdates: true,
       ...options
@@ -75,13 +183,36 @@ class MingledRuntime {
     this.setupRules();
     this.setupVariants();
     this.buildRuleLookup();
+
     if (this.options.autoInject) {
       this.createStyleElement();
+    }
+
+    if (this.options.enableReset) {
+      this.injectReset();
+    }
+  }
+
+  injectReset() {
+    // Check if reset is already injected
+    if (document.querySelector('style[data-mingled-reset]')) {
+      return;
+    }
+
+    this.resetElement = document.createElement('style');
+    this.resetElement.setAttribute('data-mingled-reset', 'true');
+    this.resetElement.textContent = CSS_RESET;
+    
+    // Insert at the beginning of <head> so it can be easily overridden
+    if (document.head.firstChild) {
+      document.head.insertBefore(this.resetElement, document.head.firstChild);
+    } else {
+      document.head.appendChild(this.resetElement);
     }
   }
 
   buildRuleLookup() {
-    const prefixes = ['h:', 'w:', 'm:', 'p:', 'c:', 'bg:', 'f:', 'fw:', 'ff:', 'b:', 'r:', 'flex', 'grid', 'translate:', 'transform:'];
+    const prefixes = ['h:', 'w:', 'm:', 'p:', 'c:', 'bg:', 'f:', 'lh:', 'ls:', 'fw:', 'ff:', 'b:', 'r:', 'flex', 'grid', 'translate:', 'transform:'];
 
     for (const prefix of prefixes) {
       const escaped = prefix.replace(ESCAPE_REGEX, '\\$&');
@@ -234,7 +365,11 @@ class MingledRuntime {
       [/^lh:(\d+(?:\.\d+)?)$/, ([, value]) => ({
         'line-height': Number.isInteger(Number(value)) ? `${value}px` : value,
       })],
+      [/^ls:(-?\d+(?:\.\d+)?)$/, ([, value]) => ({
+        'letter-spacing': `${value}px`,
+      })],
       [/^fw:(\w+|\d+)$/, ([, w]) => ({ 'font-weight': this.handleFontWeight(w) })],
+      [/^bold$/, () => ({ 'font-weight': '700' })],
       [/^bold$/, () => ({ 'font-weight': '700' })],
       [/^semi$/, () => ({ 'font-weight': '600' })],
       [/^regular$/, () => ({ 'font-weight': '400' })],
@@ -512,8 +647,8 @@ class MingledRuntime {
       const processed = this.processClass(className);
       if (Object.keys(processed.styles).length === 0) continue;
 
-      const selector = processed.pseudoClass 
-        ? `${processed.selector}:${processed.pseudoClass}` 
+      const selector = processed.pseudoClass
+        ? `${processed.selector}:${processed.pseudoClass}`
         : processed.selector;
       const decls = [];
       const nested = [];
@@ -647,8 +782,14 @@ class MingledRuntime {
     this.cache.clear();
     this.injectedTokens.clear();
     this.selectorCache.clear();
+
     if (this.styleElement) {
       this.styleElement.textContent = '';
+    }
+
+    // Re-inject reset if enabled
+    if (this.options.enableReset && this.resetElement) {
+      this.resetElement.textContent = CSS_RESET;
     }
   }
 }

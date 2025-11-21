@@ -25,6 +25,7 @@
 - 📱 **Responsive**: Built-in breakpoint system with variants
 - 🔌 **No Dependencies**: Pure JavaScript, no build tools or frameworks required
 - 💾 **Smart Caching**: Automatic style caching with configurable limits
+- 🔄 **Modern CSS Reset**: Includes a sensible reset based on Tailwind Preflight (optional)
 
 ## 📦 Installation
 
@@ -60,7 +61,38 @@ Simply include the script in your HTML:
 </html>
 ```
 
-That's it! Mingled will automatically scan your document and apply styles.
+That's it! Mingled will automatically scan your document, apply a modern CSS reset, and apply styles.
+
+### CSS Reset
+
+Mingled includes a modern CSS reset (based on Tailwind's Preflight) that is **bundled directly into `mingled.js`** - no separate files needed!
+
+The reset is **automatically injected** when you load Mingled:
+
+```html
+<script src="mingled.js"></script>
+<!-- Reset is automatically applied! -->
+```
+
+**To disable the reset:**
+
+```javascript
+const myMingled = new MingledRuntime({
+  enableReset: false  // Disable CSS reset
+});
+```
+
+**What the reset does:**
+
+- Sets `box-sizing: border-box` on all elements
+- Removes default margins on common elements (body, headings, p, etc.)
+- Improves media element defaults (images, videos, etc.)
+- Inherits fonts and colors in form elements
+- Removes default list styles
+- Resets button and form element styles
+- Respects `prefers-reduced-motion` for accessibility
+
+Read the detailed [CSS Reset Documentation](CSS-RESET.md) for more information.
 
 ### Advanced Configuration
 
@@ -74,6 +106,7 @@ You can customize the runtime with options:
     prefix: '',              // Add a prefix to all classes
     enableCache: true,       // Enable style caching (default: true)
     autoInject: true,        // Auto-inject styles (default: true)
+    enableReset: true,       // Enable CSS reset (default: true)
     maxCacheSize: 1000,      // Maximum cache entries (default: 1000)
     batchDOMUpdates: true,   // Batch DOM updates for performance (default: true)
     breakpoints: {           // Custom breakpoints
@@ -214,6 +247,7 @@ Examples:
 
 - `f:{size}`: Set font size (in pixels, converted to rem)
 - `lh:{height}`: Set line height
+- `ls:{spacing}`: Set letter spacing (in pixels, supports negative values)
 - `fw:{weight}`: Set font weight
   - Named weights: `thin`, `xlight`, `light`, `normal`, `medium`, `semibold`, `bold`, `xbold`, `black`
   - Numeric weights: `fw:100`, `fw:400`, `fw:700`, etc.
@@ -233,6 +267,9 @@ Examples:
 ```html
 <p class="f:16">Font size 16px (1rem)</p>
 <p class="f:18 fw:bold lh:1.5">Bold text with custom line height</p>
+<p class="f:16 ls:2">Wide letter spacing (2px)</p>
+<p class="f:14 ls:-0.5">Tight letter spacing (-0.5px)</p>
+<p class="f:20 ls:10 uppercase bold">Spaced out title</p>
 ```
 
 ### Colors

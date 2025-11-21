@@ -50,6 +50,29 @@ Or use CDN:
 <script src="https://cdn.jsdelivr.net/npm/mingled"></script>
 ```
 
+### CSS Reset
+
+Both Tailwind and Mingled include a CSS reset for consistent cross-browser styling:
+
+- **Tailwind**: Uses Preflight (based on modern-normalize)
+- **Mingled**: Includes a similar reset based on Tailwind Preflight
+
+The reset is **enabled by default** in Mingled but can be disabled if needed:
+
+```javascript
+const myMingled = new MingledRuntime({
+  enableReset: false  // Disable CSS reset
+});
+```
+
+**What the reset does:**
+- Sets `box-sizing: border-box` on all elements
+- Removes default margins on common elements
+- Removes list styles (bullets, padding)
+- Resets button and form styles
+- Makes images responsive by default
+- Improves form element consistency
+
 ### Remove Build Process
 
 If you were using Tailwind with a build process, you can remove:
@@ -100,6 +123,11 @@ Mingled works directly in the browser with no build step required.
 | `leading-tight` | `lh:1.25` | Line height |
 | `leading-normal` | `lh:1.5` | |
 | `leading-relaxed` | `lh:1.625` | |
+| `tracking-tight` | `ls:-0.5` | Letter spacing (negative) |
+| `tracking-normal` | `ls:0` | Letter spacing (normal) |
+| `tracking-wide` | `ls:1` | Letter spacing (positive) |
+| `tracking-wider` | `ls:2` | |
+| `tracking-widest` | `ls:4` | |
 | `text-left` | `text-left` | Text alignment |
 | `text-center` | `text-center` | |
 | `text-right` | `text-right` | |
