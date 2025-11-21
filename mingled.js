@@ -667,7 +667,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-// Export for module usage
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { MingledRuntime, Mingled: typeof window !== 'undefined' ? window.Mingled : null };
-}
+// Export for module usage (commented out for browser compatibility)
+// Uncomment the lines below if using as an ES6 module
+// export { MingledRuntime };
+// export const Mingled = typeof window !== 'undefined' ? window.Mingled : null;
