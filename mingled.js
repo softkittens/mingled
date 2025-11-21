@@ -212,7 +212,7 @@ class MingledRuntime {
   }
 
   buildRuleLookup() {
-    const prefixes = ['h:', 'w:', 'm:', 'p:', 'c:', 'bg:', 'f:', 'lh:', 'ls:', 'fw:', 'ff:', 'b:', 'r:', 'flex', 'grid', 'translate:', 'transform:'];
+    const prefixes = ['h:', 'w:', 'm:', 'p:', 'c:', 'bg:', 'blend:', 'bg-blend:', 'f:', 'lh:', 'ls:', 'fw:', 'ff:', 'b:', 'r:', 'flex', 'grid', 'abs:', 'sticky:', 'translate:', 'transform:'];
 
     for (const prefix of prefixes) {
       const escaped = prefix.replace(ESCAPE_REGEX, '\\$&');
@@ -447,6 +447,10 @@ class MingledRuntime {
         return { 'box-shadow': `${x}px ${y}px ${blur}px ${spread}px ${colorValue}` };
       }],
 
+      // Blend
+      [/^blend:(.+)$/, ([, v]) => ({ 'mix-blend-mode': v })],
+      [/^bg-blend:(.+)$/, ([, v]) => ({ 'background-blend-mode': v })],
+
       // Overflow
       [/^overflow:(\w+)$/, ([, v]) => ({ overflow: v })],
       [/^overflow-x:(\w+)$/, ([, v]) => ({ 'overflow-x': v })],
@@ -462,6 +466,30 @@ class MingledRuntime {
       [/^absolute$/, () => ({ position: 'absolute' })],
       [/^fixed$/, () => ({ position: 'fixed' })],
       [/^sticky$/, () => ({ position: 'sticky' })],
+      [/^abs:(.+)$/, ([, v]) => {
+        const parts = v.split('|').map(p => p === '' ? '0' : p);
+        const [top = '0', right = '0', bottom = '0', left = '0'] = parts;
+        const formatValue = (val) => val === '0' ? '0' : (val.includes('%') ? val : `${val}px`);
+        return {
+          position: 'absolute',
+          top: formatValue(top),
+          right: formatValue(right),
+          bottom: formatValue(bottom),
+          left: formatValue(left),
+        };
+      }],
+      [/^sticky:(.+)$/, ([, v]) => {
+        const parts = v.split('|').map(p => p === '' ? '0' : p);
+        const [top = '0', right = '0', bottom = '0', left = '0'] = parts;
+        const formatValue = (val) => val === '0' ? '0' : (val.includes('%') ? val : `${val}px`);
+        return {
+          position: 'sticky',
+          top: formatValue(top),
+          right: formatValue(right),
+          bottom: formatValue(bottom),
+          left: formatValue(left),
+        };
+      }],
       [/^top:(-?\d+%?)$/, ([, s]) => ({ top: s.includes('%') ? s : `${s}px` })],
       [/^right:(-?\d+%?)$/, ([, s]) => ({ right: s.includes('%') ? s : `${s}px` })],
       [/^bottom:(-?\d+%?)$/, ([, s]) => ({ bottom: s.includes('%') ? s : `${s}px` })],

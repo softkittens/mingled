@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/mingled"><img src="https://img.shields.io/badge/npm-v0.3.0-blue" alt="npm package"></a>
+  <a href="https://www.npmjs.com/package/mingled"><img src="https://img.shields.io/badge/npm-v0.1.2-blue" alt="npm package"></a>
   <a href="https://github.com/softkittens/mingled/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
@@ -190,6 +190,8 @@ Examples:
 #### Positioning
 
 - `relative`, `absolute`, `fixed`, `sticky`: Set position property
+- `abs:{top}|{right}|{bottom}|{left}`: Absolute position with offsets (missing values default to 0)
+- `sticky:{top}|{right}|{bottom}|{left}`: Sticky position with offsets (missing values default to 0)
 - `{side}:{value}`: Set top, right, bottom, or left offset (e.g., `top:10`, `left:50%`)
 - `inset:{value}`: Set all four sides to the same value
 
@@ -197,10 +199,18 @@ Examples:
 
 ```html
 <div class="relative">Relative positioning</div>
-<div class="absolute top:0 left:0">Absolute top-left</div>
+<div class="absolute top:0 left:0">Absolute top-left (manual)</div>
+<div class="abs:10">Absolute top: 10px, others: 0</div>
+<div class="abs:10|10">Absolute top: 10px, right: 10px, others: 0</div>
+<div class="abs:||10">Absolute bottom: 10px, others: 0</div>
+<div class="abs:||10|10">Absolute bottom: 10px, left: 10px, others: 0</div>
+<div class="abs:0|0|0|0">Full coverage (all sides 0)</div>
 <div class="fixed bottom:20 right:20">Fixed bottom-right</div>
-<div class="sticky top:0">Sticky header</div>
-<div class="absolute inset:0">Full coverage</div>
+<div class="sticky:0">Sticky top: 0, others: 0</div>
+<div class="sticky:20">Sticky top: 20px, others: 0</div>
+<div class="sticky:||10">Sticky bottom: 10px, others: 0</div>
+<div class="sticky:|||10">Sticky left: 10px, others: 0</div>
+<div class="sticky:10|20|30|40">All sides specified</div>
 ```
 
 ### Spacing
@@ -324,6 +334,8 @@ Examples:
 - `overflow:{value}`: Set overflow (`hidden`, `auto`, `scroll`, `visible`)
 - `overflow-x:{value}`, `overflow-y:{value}`: Set overflow on specific axis
 - `shadow:{offsetX}|{offsetY}|{blur}|{spread}|{color}`: Set box shadow
+- `blend:{value}`: Set mix-blend-mode (e.g., `multiply`, `screen`)
+- `bg-blend:{value}`: Set background-blend-mode
 - `none`: Set appearance to none
 - `hidden`: Set display to none
 
@@ -340,6 +352,8 @@ Examples:
 <div class="overflow:hidden">Hidden overflow</div>
 <div class="overflow-x:auto">Horizontal scroll</div>
 <div class="shadow:0|2|4|0|#00000026">Subtle shadow</div>
+<div class="blend:multiply bg:red">Blended with background</div>
+<div class="bg-blend:multiply" style="background: linear-gradient(red, blue), linear-gradient(yellow, green);">Blended backgrounds</div>
 ```
 
 ### Text Decoration and Formatting

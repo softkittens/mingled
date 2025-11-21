@@ -242,6 +242,13 @@ Mingled works directly in the browser with no build step required.
 | `absolute` | `absolute` | |
 | `fixed` | `fixed` | |
 | `sticky` | `sticky` | |
+| `absolute top-0 left-0` | `abs:0` | Shorthand: top\|right\|bottom\|left |
+| `absolute top-4` | `abs:16` | top: 16px, others: 0 |
+| `absolute bottom-0 right-0` | `abs:\|\|0\|0` | bottom: 0, right: 0 |
+| `absolute inset-0` | `abs:0\|0\|0\|0` | All sides: 0 |
+| `sticky top-0` | `sticky:0` | Shorthand: top\|right\|bottom\|left |
+| `sticky top-4` | `sticky:16` | top: 16px, others: 0 |
+| `sticky bottom-0` | `sticky:\|\|0` | bottom: 0, others: 0 |
 | `top-0` | `top:0` | |
 | `top-4` | `top:16` | |
 | `right-0` | `right:0` | |
