@@ -1,0 +1,13 @@
+{
+  "name": "mingled",
+  "version": "0.1.1",
+  "description": "Inline css style framework",
+  "module": "mingled.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/softkittens/mingled.git"
+  },
+  "type": "module",
+  "author": "aileksandar",
+  "license": "MIT"
+}

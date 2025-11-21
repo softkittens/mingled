@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mingled Runtime - Standalone Demo</title>
+    <script src="./mingled.js"></script>
+    <style>
+        :root {
+            --color-primary: #3b82f6;
+            --color-secondary: #64748b;
+            --color-blue: #3b82f6;
+            --color-darkblue: #1d4ed8;
+            --font-sans: 'Inter', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="f:32 fw:bold mb:20 c:primary">Mingled Runtime Demo</h1>
+
+    <div class="bg:white p:20 r:8 shadow:0|2|10|0|(0,0,0,0.1) mb:20">
+        <h2 class="f:24 fw:semibold mb:12">Card Component</h2>
+        <p class="f:16 c:secondary mb:16">This card is styled using Mingled runtime without UnoCSS!</p>
+        <button class="bg:blue c:white p:8|16 r:4 pointer b:none bg:darkblue:hover">
+            Interactive Button
+        </button>
+    </div>
+
+    <div class="flex:between|center mb:20">
+        <div class="w:48% bg:white p:16 r:8">
+            <h3 class="f:18 fw:bold mb:8">Flex Layout</h3>
+            <p class="f:14 lh:1.5">This demonstrates flex utilities working properly.</p>
+        </div>
+        <div class="w:48% bg:white p:16 r:8">
+            <h3 class="f:18 fw:bold mb:8">Responsive Design</h3>
+            <p class="f:14 lh:1.5">Try resizing your browser to see responsive breakpoints.</p>
+        </div>
+    </div>
+
+    <div class="flex:center|center p:40 bg:primary/10 r:8">
+        <div class="ta:center">
+            <h3 class="f:20 fw:bold mb:8">Centered Content</h3>
+            <p class="f:16 c:secondary">This content is perfectly centered using flex utilities.</p>
+        </div>
+    </div>
+
+    <div class="mt:20">
+        <h2 class="f:24 mb:16">Typography Examples</h2>
+        <p class="f:14 upper c:secondary mb:8">Uppercase Text</p>
+        <p class="f:16 capitalize mb:8">Capitalized text with proper styling.</p>
+        <p class="f:18 underline mb:8">Underlined text decoration.</p>
+        <p class="f:20 line-through mb:8">Strikethrough text example.</p>
+    </div>
+
+    <div class="mt:20">
+        <h2 class="f:24 mb:16">Spacing and Layout</h2>
+        <div class="flex gap:10 mb:10">
+            <div class="p:10 bg:blue/20 r:4">Item 1</div>
+            <div class="p:10 bg:green/20 r:4">Item 2</div>
+            <div class="p:10 bg:red/20 r:4">Item 3</div>
+        </div>
+        <div class="grid grid-cols:3 gap:10">
+            <div class="p:10 bg:purple/20 r:4">Grid 1</div>
+            <div class="p:10 bg:purple/20 r:4">Grid 2</div>
+            <div class="p:10 bg:purple/20 r:4">Grid 3</div>
+        </div>
+    </div>
+
+    <script>
+        // You can also programmatically apply styles
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create a new element and apply Mingled styles
+            const newElement = document.createElement('div');
+            newElement.className = 'bg:yellow p:16 r:8 mt:20';
+            newElement.innerHTML = '<strong>Dynamically created element</strong> with Mingled styles applied via JavaScript!';
+            document.body.appendChild(newElement);
+
+            // Or use the API directly
+            window.Mingled.apply(newElement, 'b:orange|2px|solid');
+        });
+    </script>
+</body>
+</html>
