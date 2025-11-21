@@ -37,7 +37,7 @@ npm install mingled
 ### Via CDN
 
 ```html
-<script src="https://unpkg.com/mingled@latest/mingled.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mingled"></script>
 ```
 
 ## 🛠️ Setup
@@ -50,7 +50,7 @@ Simply include the script in your HTML:
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://unpkg.com/mingled@latest/mingled.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mingled"></script>
 </head>
 <body>
   <div class="p:16 bg:blue c:white r:8">
