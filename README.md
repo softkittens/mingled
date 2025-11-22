@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/mingled"><img src="https://img.shields.io/badge/npm-v0.1.2-blue" alt="npm package"></a>
+  <a href="https://www.npmjs.com/package/mingled"><img src="https://img.shields.io/badge/npm-v0.1.3-blue" alt="npm package"></a>
   <a href="https://github.com/softkittens/mingled/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="license"></a>
 </p>
 
